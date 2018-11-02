@@ -1,5 +1,13 @@
 //---------------------------------------------------------
 
+let speed = 20;
+let resolution = 8;
+let _height = 80; // rows in matrix
+let _width = 200; // cols in matrix
+let matrix = initMatrix(_height, _width);
+
+//---------------------------------------------------------
+
 function initMatrix(_height, _width) {
   let matrix2D = [];
   for (let i = 0; i < _height; i++) {
@@ -14,7 +22,7 @@ function initMatrix(_height, _width) {
 
 //---------------------------------------------------------
 
-function tick() {
+function copyParentMatrix() {
   let parentMatrixCopy = [];
   for (let r = 0; r < _height; r++) {
     parentMatrixCopy[r] = [];
@@ -22,6 +30,13 @@ function tick() {
       parentMatrixCopy[r][c] = matrix[r][c].isAlive();
     }
   }
+  return parentMatrixCopy;
+}
+
+//---------------------------------------------------------
+
+function tick() {
+  let parentMatrixCopy = copyParentMatrix();
   for (let i = 0; i < _height; i++) {
     for (let j = 0; j < _width; j++) {
       if (matrix[i][j].isAlive()) {
@@ -32,14 +47,6 @@ function tick() {
     }
   }
 }
-
-//---------------------------------------------------------
-
-let speed = 20;
-let resolution = 8;
-let _height = 80; // rows in matrix
-let _width = 300; // cols in matrix
-let matrix = initMatrix(_height, _width);
 
 //---------------------------------------------------------
 
