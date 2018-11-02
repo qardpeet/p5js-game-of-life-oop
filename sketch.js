@@ -1,3 +1,5 @@
+//---------------------------------------------------------
+
 function initMatrix(_height, _width) {
   let matrix2D = [];
   for (let i = 0; i < _height; i++) {
@@ -10,12 +12,14 @@ function initMatrix(_height, _width) {
   return matrix2D;
 }
 
+//---------------------------------------------------------
+
 function tick() {
-  let matrixCopy = [];
+  let parentMatrixCopy = [];
   for (let r = 0; r < _height; r++) {
-    matrixCopy[r] = [];
+    parentMatrixCopy[r] = [];
     for (let c = 0; c < _width; c++) {
-      matrixCopy[r][c] = matrix[r][c].isAlive();
+      parentMatrixCopy[r][c] = matrix[r][c].isAlive();
     }
   }
   for (let i = 0; i < _height; i++) {
@@ -24,16 +28,20 @@ function tick() {
         fill(0, 255, matrix[i][j].generationsSurvived / 4);
         rect(j * resolution, i * resolution, resolution, resolution);
       }
-      matrix[i][j].shouldPopulate(matrixCopy);
+      matrix[i][j].shouldPopulate(parentMatrixCopy);
     }
   }
 }
+
+//---------------------------------------------------------
 
 let speed = 20;
 let resolution = 8;
 let _height = 80; // rows in matrix
 let _width = 300; // cols in matrix
 let matrix = initMatrix(_height, _width);
+
+//---------------------------------------------------------
 
 function mouseWheel(event) {
   let increment = resolution + -(event.delta / 50);

@@ -22,68 +22,71 @@ class Cell {
     this.status = true;
   }
 
-  neighbors(parentMatrix) {
+  neighbors(parentMatrixCopy) {
     let neighborCount = 0;
     if (
-      parentMatrix[this.row].hasOwnProperty(this.col + 1) &&
-      parentMatrix[this.row][this.col + 1]
+      parentMatrixCopy[this.row].hasOwnProperty(this.col + 1) &&
+      parentMatrixCopy[this.row][this.col + 1]
     ) {
       neighborCount++;
     }
     if (
-      parentMatrix[this.row].hasOwnProperty(this.col - 1) &&
-      parentMatrix[this.row][this.col - 1]
+      parentMatrixCopy[this.row].hasOwnProperty(this.col - 1) &&
+      parentMatrixCopy[this.row][this.col - 1]
     ) {
       neighborCount++;
     }
     if (
-      parentMatrix.hasOwnProperty(this.row + 1) &&
-      parentMatrix[this.row + 1][this.col]
+      parentMatrixCopy.hasOwnProperty(this.row + 1) &&
+      parentMatrixCopy[this.row + 1][this.col]
     ) {
       neighborCount++;
     }
     if (
-      parentMatrix.hasOwnProperty(this.row - 1) &&
-      parentMatrix[this.row - 1][this.col]
+      parentMatrixCopy.hasOwnProperty(this.row - 1) &&
+      parentMatrixCopy[this.row - 1][this.col]
     ) {
       neighborCount++;
     }
     if (
-      parentMatrix.hasOwnProperty(this.row - 1) &&
-      parentMatrix[this.row - 1].hasOwnProperty(this.col - 1) &&
-      parentMatrix[this.row - 1][this.col - 1]
+      parentMatrixCopy.hasOwnProperty(this.row - 1) &&
+      parentMatrixCopy[this.row - 1].hasOwnProperty(this.col - 1) &&
+      parentMatrixCopy[this.row - 1][this.col - 1]
     ) {
       neighborCount++;
     }
     if (
-      parentMatrix.hasOwnProperty(this.row - 1) &&
-      parentMatrix[this.row - 1].hasOwnProperty(this.col + 1) &&
-      parentMatrix[this.row - 1][this.col + 1]
+      parentMatrixCopy.hasOwnProperty(this.row - 1) &&
+      parentMatrixCopy[this.row - 1].hasOwnProperty(this.col + 1) &&
+      parentMatrixCopy[this.row - 1][this.col + 1]
     ) {
       neighborCount++;
     }
     if (
-      parentMatrix.hasOwnProperty(this.row + 1) &&
-      parentMatrix[this.row + 1].hasOwnProperty(this.col - 1) &&
-      parentMatrix[this.row + 1][this.col - 1]
+      parentMatrixCopy.hasOwnProperty(this.row + 1) &&
+      parentMatrixCopy[this.row + 1].hasOwnProperty(this.col - 1) &&
+      parentMatrixCopy[this.row + 1][this.col - 1]
     ) {
       neighborCount++;
     }
     if (
-      parentMatrix.hasOwnProperty(this.row + 1) &&
-      parentMatrix[this.row + 1].hasOwnProperty(this.col + 1) &&
-      parentMatrix[this.row + 1][this.col + 1]
+      parentMatrixCopy.hasOwnProperty(this.row + 1) &&
+      parentMatrixCopy[this.row + 1].hasOwnProperty(this.col + 1) &&
+      parentMatrixCopy[this.row + 1][this.col + 1]
     ) {
       neighborCount++;
     }
     return neighborCount;
   }
 
-  shouldPopulate(parentMatrix) {
-    if (this.neighbors(parentMatrix) < 2 || this.neighbors(parentMatrix) > 3) {
+  shouldPopulate(parentMatrixCopy) {
+    if (
+      this.neighbors(parentMatrixCopy) < 2 ||
+      this.neighbors(parentMatrixCopy) > 3
+    ) {
       this.killCell();
       this.generationsSurvived = 0;
-    } else if (this.neighbors(parentMatrix) === 3) {
+    } else if (this.neighbors(parentMatrixCopy) === 3) {
       this.birthCell();
       this.generationsSurvived++;
     } else {
