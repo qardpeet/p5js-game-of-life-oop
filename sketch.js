@@ -15,12 +15,12 @@ function tick() {
   for (let r = 0; r < _height; r++) {
     matrixCopy[r] = [];
     for (let c = 0; c < _width; c++) {
-      matrixCopy[r][c] = matrix[r][c].isAlive;
+      matrixCopy[r][c] = matrix[r][c].isAlive();
     }
   }
   for (let i = 0; i < _height; i++) {
     for (let j = 0; j < _width; j++) {
-      if (matrix[i][j].isAlive) {
+      if (matrix[i][j].isAlive()) {
         fill(0, 255, matrix[i][j].generationsSurvived / 4);
         rect(j * resolution, i * resolution, resolution, resolution);
       }

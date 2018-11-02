@@ -6,7 +6,7 @@ class Cell {
     this.generationsSurvived = generationsSurvived;
   }
 
-  get isAlive() {
+  isAlive() {
     return this.status;
   }
 
@@ -22,71 +22,68 @@ class Cell {
     this.status = true;
   }
 
-  neighbours(parentMatrix) {
-    let neighbourCount = 0;
+  neighbors(parentMatrix) {
+    let neighborCount = 0;
     if (
       parentMatrix[this.row].hasOwnProperty(this.col + 1) &&
       parentMatrix[this.row][this.col + 1]
     ) {
-      neighbourCount++;
+      neighborCount++;
     }
     if (
       parentMatrix[this.row].hasOwnProperty(this.col - 1) &&
       parentMatrix[this.row][this.col - 1]
     ) {
-      neighbourCount++;
+      neighborCount++;
     }
     if (
       parentMatrix.hasOwnProperty(this.row + 1) &&
       parentMatrix[this.row + 1][this.col]
     ) {
-      neighbourCount++;
+      neighborCount++;
     }
     if (
       parentMatrix.hasOwnProperty(this.row - 1) &&
       parentMatrix[this.row - 1][this.col]
     ) {
-      neighbourCount++;
+      neighborCount++;
     }
     if (
       parentMatrix.hasOwnProperty(this.row - 1) &&
       parentMatrix[this.row - 1].hasOwnProperty(this.col - 1) &&
       parentMatrix[this.row - 1][this.col - 1]
     ) {
-      neighbourCount++;
+      neighborCount++;
     }
     if (
       parentMatrix.hasOwnProperty(this.row - 1) &&
       parentMatrix[this.row - 1].hasOwnProperty(this.col + 1) &&
       parentMatrix[this.row - 1][this.col + 1]
     ) {
-      neighbourCount++;
+      neighborCount++;
     }
     if (
       parentMatrix.hasOwnProperty(this.row + 1) &&
       parentMatrix[this.row + 1].hasOwnProperty(this.col - 1) &&
       parentMatrix[this.row + 1][this.col - 1]
     ) {
-      neighbourCount++;
+      neighborCount++;
     }
     if (
       parentMatrix.hasOwnProperty(this.row + 1) &&
       parentMatrix[this.row + 1].hasOwnProperty(this.col + 1) &&
       parentMatrix[this.row + 1][this.col + 1]
     ) {
-      neighbourCount++;
+      neighborCount++;
     }
-    return neighbourCount;
+    return neighborCount;
   }
 
   shouldPopulate(parentMatrix) {
-    if (
-      this.neighbours(parentMatrix) < 2 ||
-      this.neighbours(parentMatrix) > 3
-    ) {
+    if (this.neighbors(parentMatrix) < 2 || this.neighbors(parentMatrix) > 3) {
       this.killCell();
       this.generationsSurvived = 0;
-    } else if (this.neighbours(parentMatrix) === 3) {
+    } else if (this.neighbors(parentMatrix) === 3) {
       this.birthCell();
       this.generationsSurvived++;
     } else {
